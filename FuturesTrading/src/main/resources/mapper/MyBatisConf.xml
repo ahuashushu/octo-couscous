@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.product.dao.UserDao">
+	<resultMap id="userMap"
+			   type="org.product.domain.User">
+		<result property="username" column="USERNAME"
+				jdbcType="VARCHAR" javaType="string"/>
+		<result property="phone" column="PHONE"
+				jdbcType="VARCHAR" javaType="string"/>
+		<result property="passwd" column="PASSWD"
+				jdbcType="VARCHAR" javaType="string"/>
+		<result property="id" column="ID"
+				jdbcType="INTEGER" javaType="Integer"/>
+	</resultMap>
+
+	<parameterMap id="User" type="org.product.domain.User"/>
+
+    <select id="findAll" resultType="org.product.domain.User">
+		select * from user
+	</select>
+
+    <select id="findById" parameterType="String"
+			resultType="org.product.domain.User">
+			select * from user where PHONE=#{phone}
+	</select>
+
+    <insert id="addUser"
+            parameterType="org.product.domain.User" >
+			insert into user (USERNAME,PHONE,PASSWD)
+				values (#{username},#{phone},#{passwd})
+	</insert>
+
+    <delete id="deleteById" parameterType="string">
+		delete from user where PHONE=#{id}
+	</delete>
+
+    <update id="updateUser" parameterType="org.product.domain.User">
+		update user set USERNAME=#{username},PASSWD=#{passwd} where PHONE=#{phone}
+	</update>
+
+    <!-- 返回Map -->
+    <select id="findUser"  resultType="java.util.HashMap">
+		select USERNAME,PHONE from user
+	</select>
+
+    <select id="findUser1" parameterType="string" resultType="java.util.HashMap">
+		select USERNAME,PASSWD from user where PHONE=#{phone}
+	</select>
+
+    <!-- ResultMap应用 -->
+    <select id="findAll1" resultMap="userMap">
+		select USERNAME,PHONE,PASSWD from user
+	</select>
+</mapper>

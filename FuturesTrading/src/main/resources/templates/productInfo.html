@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<legend>
+    <strong>商品详情</strong>
+</legend>
+<img th:src="@{product.sub_images}"/>
+<p th:text="${product.name}"></p>
+<p th:text="${product.detail}"></p>
+<p th:text="${product.price}"></p>
+
+</body>
+</html>

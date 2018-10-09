@@ -1,0 +1,46 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: lina
+  Date: 18-8-16
+  Time: 下午3:44
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>登录</title>
+</head>
+<script>
+    var xmlHttp;
+    function login() {
+        var passwd=document.getElementById("passwd");
+        var phone=document.getElementById("phone");
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("get","/login?pwd="+passwd.value+"&num= "+phone.value,true);
+        xmlhttp.onreadystatechange=function () {
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                // var responseText = xmlhttp.responseText;
+                // var res=document.getElementById("button");
+
+                var login=xmlhttp.responseText;
+
+                if(login=="false"){
+                    alert("密码错误，请重新输入。")
+                }else if(login=="null"){
+                    alert("帐号不存在!")
+                }
+                else {
+                    window.location.href="~/FuturesTrading/src/main/resources/templates/productList.html?login="+login;
+                }
+            }
+        }
+        xmlhttp.send();
+    }
+</script>
+<body>
+输入手机号码<input type="text" id="phone"> <br>
+输入密码<input type="password" id="passwd"> <br>
+<input type="button" id="in" value="登录" onclick="login()"><br>
+<a href="register.html">注册帐号</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>建仓买入</title>
+</head>
+<script>
+    function add() {
+        document.getElementById('newprice').value
+    }
+    function determine() {
+
+    }
+</script>
+
+<body>
+
+<div class="contentDiv">
+    建仓买入
+    最新价： <input type="text" name="newprice" id="newprice">
+     <input type="button" id="add" value="填入" onclick="add()"><br>
+     建仓价格:<input type="text" id="sellprice"><br>
+    建仓手数（1-100）<input type="text" id="sellnum">
+    履行保证金:<input type="text" id="handsel"><br>
+    交易手续费：<input type="text" id="poundage"><br>
+    可用金额：<input type="text" id="canues"><br>
+    总计：<input type="text" id="count">
+    <input type="button" id="determine" value="确定支付" onclick="determine()">
+
+    <div><a class="btn btn-primary" href="/product/create" role="button">新增书籍</a></div>
+</div>
+
+</body>
+</html>

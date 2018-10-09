@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}">
+    </script>
+    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>商品列表</title>
+</head>
+<script>
+    function search() {
+        document.forms[0].submit();
+        var name=document.getElementById("name").value;
+    }
+</script>
+<body>
+
+<div class="contentDiv">
+
+    <h5><a href="hello.html">个人中心</a> </h5>
+
+    <table class="table table-hover table-condensed">
+        <legend>
+            <strong>商品列表</strong>
+        </legend>
+        <form th:action="@{/product/select/{action}(action=${action})}" method="get" class="form-horizontal">
+        <input type="text" name="name" id="name" >
+            <input type="button" name="button" value="搜索" onclick="search()">
+        <thead>
+        </form>
+        <tr>
+
+            <th th:each="list:${listName}">
+                <a th:href="@{/product/types(name=${list})}" th:text="${list}" ></a>
+            </th><tr>
+            <th>商品名称</th>
+            <th>商品状态</th>
+            <th>商品价格</th>
+            <th>商家id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${productList}">
+            <td><a th:href="@{/product/productInfo(id=${product.id})}" th:text="${product.name}"></a></td>
+            <th th:text="${product.status}"></th>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.user_id}"></td>
+            <!--<td><a class="btn btn-danger" th:href="@{/product/delete/{bookId}(bookId=${book.id})}">删除</a></td>-->
+        </tr>
+        </tbody>
+
+    </table>
+
+    <div><a class="btn btn-primary" href="/product/create" role="button">新增书籍</a></div>
+
+</div>
+
+</body>
+</html>

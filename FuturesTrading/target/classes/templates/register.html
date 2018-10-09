@@ -1,0 +1,60 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: lina
+  Date: 18-8-14
+  Time: 上午11:11
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>登录</title>
+</head>
+<script>
+    var xmlhttp;
+    function register() {
+        var name=document.getElementById("username");
+        var passwd=document.getElementById("passwd");
+        var phone=document.getElementById("phone");
+        var captcha=document.getElementById("text");
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("get","/aaa?name="+name.value+"&pwd="+passwd.value+"&num="+phone.value+"&captcha="+captcha.value,true);
+        xmlhttp.onreadystatechange=function () {
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                var responseText = xmlhttp.responseText;
+                if(responseText=="false"){
+                    alert("输入的验证码有误。")
+                }else if(responseText!=null){
+                    window.location.href="jump.html";
+                }
+            }
+        }
+        xmlhttp.send();
+    }
+    function message() {
+        var phone=document.getElementById("phone");
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("get","/message.do?phone="+phone.value,true);
+
+        xmlhttp.onreadystatechange=function () {
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+
+                var responseText=xmlhttp.responseText;
+                if(responseText=="false"){
+                    alert("帐号已被注册。")
+                }else {
+                    alert("已发送验证码！");
+                }
+            }
+        }
+        xmlhttp.send();
+    }
+</script>
+<body>
+输入昵称<input type="text" id="username" name="username"><br>
+输入密码<input type="password" id="passwd" name="passwd"><br>
+输入手机号<input type="text" id="phone" name="phone"><br>
+输入验证码<input type="text" name="text" id="text"><input type="button" id="message" value="获取验证码" onclick="message()">
+<input type="button" id="button" value="确定" onclick="register()">
+</body>
+</html>
